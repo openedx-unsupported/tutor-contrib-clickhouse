@@ -1,0 +1,2 @@
+recursive-include tutorclickhouse/patches *
+recursive-include tutorclickhouse/templates *
