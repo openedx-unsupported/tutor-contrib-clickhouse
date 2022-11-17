@@ -34,7 +34,7 @@ setup(
     },
     license="AGPLv3",
     author="Brian Mesick",
-    description="clickhouse plugin for Tutor",
+    description="Clickhouse plugin for Tutor",
     long_description=load_readme(),
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
