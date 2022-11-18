@@ -20,6 +20,19 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("CLICKHOUSE_HOST", "clickhouse_service"),
         ("CLICKHOUSE_PORT", "9000"),
         ("CLICKHOUSE_XAPI_DATABASE", "xapi"),
+
+        # This can be used to override some configuration values in
+        # via "docker_config.xml" file, which will be read from a
+        # mount on /etc/clickhouse-server/config.d/ on startup.
+        # See https://clickhouse.com/docs/en/operations/configuration-files
+        #
+        # This default allows connecting to Clickhouse when run as a
+        # standalone docker container, instead of through docker-compose.
+        ("CLICKHOUSE_EXTRA_XML_CONFIG", """
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+        """),
     ]
 )
 
@@ -128,6 +141,7 @@ clickhouse_service:
             hard: 262144
     volumes:
         - ../../data/clickhouse:/var/lib/clickhouse/
+        - ../../env/plugins/clickhouse/apps/config:/etc/clickhouse-server/config.d/
         """
     )
 )
