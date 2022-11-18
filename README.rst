@@ -1,5 +1,8 @@
-clickhouse plugin for `Tutor <https://docs.tutor.overhang.io>`__
+Clickhouse plugin for `Tutor <https://docs.tutor.overhang.io>`__
 ===================================================================================
+
+This plugin is speculative and being used to test new Open edX analytics features.
+It is not configured for production use at this time, use at your own risk!
 
 Installation
 ------------
