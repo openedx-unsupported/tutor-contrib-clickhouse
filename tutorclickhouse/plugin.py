@@ -19,6 +19,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("CLICKHOUSE_VERSION", __version__),
         ("CLICKHOUSE_HOST", "clickhouse_service"),
         ("CLICKHOUSE_PORT", "9000"),
+        ("CLICKHOUSE_HTTP_PORT", "8123"),
         ("CLICKHOUSE_XAPI_DATABASE", "xapi"),
 
         # This can be used to override some configuration values in
@@ -133,8 +134,8 @@ clickhouse_service:
         CLICKHOUSE_PASSWORD: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
         CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     ports:
-        - 18123:8123
-        - 19000:9000
+        - 18123:{{ CLICKHOUSE_HTTP_PORT }}
+        - 19000:{{ CLICKHOUSE_PORT }}
     ulimits:
         nofile:
             soft: 262144
