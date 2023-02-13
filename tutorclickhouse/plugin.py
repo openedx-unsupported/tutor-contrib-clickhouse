@@ -19,6 +19,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("CLICKHOUSE_VERSION", __version__),
         ("CLICKHOUSE_HOST", "clickhouse_service"),
         ("CLICKHOUSE_PORT", "9000"),
+        ("CLICKHOUSE_HTTP_PORT", "8123"),
         ("CLICKHOUSE_XAPI_DATABASE", "xapi"),
 
         # This can be used to override some configuration values in
@@ -33,6 +34,11 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
     <listen_host>0.0.0.0</listen_host>
     <listen_try>1</listen_try>
         """),
+
+        # Demo data (optional)
+        ("CLICKHOUSE_LOAD_DEMO_DATA", "no"), # set to "xapi" to load xapi demo data into clickhouse
+        ("CLICKHOUSE_LOAD_DEMO_XAPI_BATCHES", "100"),
+        ("CLICKHOUSE_LOAD_DEMO_XAPI_BATCH_SIZE", "100"),
     ]
 )
 
@@ -71,6 +77,10 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 hooks.Filters.COMMANDS_INIT.add_item((
     "clickhouse_service",
     ("clickhouse", "tasks", "init.sh"),
+))
+hooks.Filters.COMMANDS_INIT.add_item((
+    "clickhouse_service",
+    ("clickhouse", "tasks", "demo-xapi.sh"),
 ))
 
 
@@ -133,8 +143,8 @@ clickhouse_service:
         CLICKHOUSE_PASSWORD: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
         CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     ports:
-        - 18123:8123
-        - 19000:9000
+        - 18123:{{ CLICKHOUSE_HTTP_PORT }}
+        - 19000:{{ CLICKHOUSE_PORT }}
     ulimits:
         nofile:
             soft: 262144
