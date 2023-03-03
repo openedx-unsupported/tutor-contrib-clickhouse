@@ -34,11 +34,6 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
     <listen_host>0.0.0.0</listen_host>
     <listen_try>1</listen_try>
         """),
-
-        # Demo data (optional)
-        ("CLICKHOUSE_LOAD_DEMO_DATA", "no"), # set to "xapi" to load xapi demo data into clickhouse
-        ("CLICKHOUSE_LOAD_DEMO_XAPI_BATCHES", "100"),
-        ("CLICKHOUSE_LOAD_DEMO_XAPI_BATCH_SIZE", "100"),
     ]
 )
 
@@ -77,10 +72,6 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 hooks.Filters.COMMANDS_INIT.add_item((
     "clickhouse_service",
     ("clickhouse", "tasks", "init.sh"),
-))
-hooks.Filters.COMMANDS_INIT.add_item((
-    "clickhouse_service",
-    ("clickhouse", "tasks", "demo-xapi.sh"),
 ))
 
 
