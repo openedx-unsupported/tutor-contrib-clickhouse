@@ -129,6 +129,12 @@ clickhouse:
     ports:
         - 8123:{{ CLICKHOUSE_HTTP_PORT }}
         - 9000:{{ CLICKHOUSE_PORT }}
+    healthcheck:
+        test: ["CMD-SHELL", "clickhouse client --user {{ CLICKHOUSE_ADMIN_USER}} --password {{CLICKHOUSE_ADMIN_PASSWORD }} --host {{ CLICKHOUSE_HOST }} --port {{ CLICKHOUSE_PORT }} -q 'exit' || exit 1"]
+        interval: 5s
+        timeout: 5s
+        retries: 3
+        start_period: 40s
     ulimits:
         nofile:
             soft: 262144
