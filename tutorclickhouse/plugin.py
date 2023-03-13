@@ -17,10 +17,9 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         # Each new setting is a pair: (setting_name, default_value).
         # Prefix your setting names with 'CLICKHOUSE_'.
         ("CLICKHOUSE_VERSION", __version__),
-        ("CLICKHOUSE_HOST", "clickhouse_service"),
+        ("CLICKHOUSE_HOST", "clickhouse"),
         ("CLICKHOUSE_PORT", "9000"),
         ("CLICKHOUSE_HTTP_PORT", "8123"),
-        ("CLICKHOUSE_XAPI_DATABASE", "xapi"),
 
         # This can be used to override some configuration values in
         # via "docker_config.xml" file, which will be read from a
@@ -43,14 +42,8 @@ hooks.Filters.CONFIG_UNIQUE.add_items(
         # For instance: passwords, secret keys, etc.
         # Each new setting is a pair: (setting_name, unique_generated_value).
         # Prefix your setting names with 'CLICKHOUSE_'.
-        # For example:
-        # ("CLICKHOUSE_SECRET_KEY", "{{ 24|random_string }}"),
         ("CLICKHOUSE_ADMIN_USER", "ch_admin"),
         ("CLICKHOUSE_ADMIN_PASSWORD", "{{ 24|random_string }}"),
-        ("CLICKHOUSE_LRS_USER", "ch_lrs"),
-        ("CLICKHOUSE_LRS_PASSWORD", "{{ 24|random_string }}"),
-        ("CLICKHOUSE_REPORT_USER", "ch_report"),
-        ("CLICKHOUSE_REPORT_PASSWORD", "{{ 24|random_string }}"),
     ]
 )
 
@@ -70,7 +63,7 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 
 # To run the script from templates/clickhouse/tasks/myservice/init.sh, add:
 hooks.Filters.COMMANDS_INIT.add_item((
-    "clickhouse_service",
+    "clickhouse",
     ("clickhouse", "tasks", "init.sh"),
 ))
 
@@ -80,8 +73,8 @@ hooks.Filters.COMMANDS_INIT.add_item((
 ########################################
 
 # hooks.Filters.IMAGES_BUILD.add_item((
-#     "clickhouse_service",
-#     ("plugins", "clickhouse", "build", "clickhouse_service"),
+#     "clickhouse",
+#     ("plugins", "clickhouse", "build", "clickhouse"),
 #     "tutor_clickhouse:{{ CLICKHOUSE_VERSION }}",
 #     (),
 # ))
@@ -126,7 +119,7 @@ hooks.Filters.ENV_PATCHES.add_item(
     (
         "local-docker-compose-services",
         """
-clickhouse_service:
+clickhouse:
     image: clickhouse/clickhouse-server:latest
     environment:
         CLICKHOUSE_DB: xapi
@@ -134,8 +127,8 @@ clickhouse_service:
         CLICKHOUSE_PASSWORD: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
         CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     ports:
-        - 18123:{{ CLICKHOUSE_HTTP_PORT }}
-        - 19000:{{ CLICKHOUSE_PORT }}
+        - 8123:{{ CLICKHOUSE_HTTP_PORT }}
+        - 9000:{{ CLICKHOUSE_PORT }}
     ulimits:
         nofile:
             soft: 262144
@@ -151,10 +144,10 @@ hooks.Filters.ENV_PATCHES.add_item(
     (
         "local-docker-compose-jobs-services",
         """
-clickhouse_service-job:
+clickhouse-job:
     image: clickhouse/clickhouse-server:latest
     depends_on: 
-        - clickhouse_service
+        - clickhouse
         """,
     )
 )
