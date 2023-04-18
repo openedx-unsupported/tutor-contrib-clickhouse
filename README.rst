@@ -9,6 +9,11 @@ It is not configured for production use at this time, use at your own risk!
 
 See https://github.com/openedx/openedx-oars for more details.
 
+Compatibility
+-------------
+
+This plugin is compatible with Tutor 15.0.0 and later.
+
 Installation
 ------------
 
