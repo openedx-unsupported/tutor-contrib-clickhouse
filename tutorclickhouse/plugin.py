@@ -1,3 +1,4 @@
+"""Implements Clickhouse plugin via Tutor Plugin API v1."""
 from glob import glob
 import os
 import pkg_resources
@@ -29,11 +30,14 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         #
         # This default allows connecting to Clickhouse when run as a
         # standalone docker container, instead of through docker-compose.
-        ("CLICKHOUSE_EXTRA_XML_CONFIG", """
+        (
+            "CLICKHOUSE_EXTRA_XML_CONFIG",
+            """
     <listen_host>::</listen_host>
     <listen_host>0.0.0.0</listen_host>
     <listen_try>1</listen_try>
-        """),
+        """,
+        ),
     ]
 )
 
@@ -63,10 +67,12 @@ hooks.Filters.CONFIG_OVERRIDES.add_items(
 ########################################
 
 # To run the script from templates/clickhouse/tasks/myservice/init.sh, add:
-hooks.Filters.COMMANDS_INIT.add_item((
-    "clickhouse",
-    ("clickhouse", "tasks", "init.sh"),
-))
+hooks.Filters.COMMANDS_INIT.add_item(
+    (
+        "clickhouse",
+        ("clickhouse", "tasks", "init.sh"),
+    )
+)
 
 
 ########################################
