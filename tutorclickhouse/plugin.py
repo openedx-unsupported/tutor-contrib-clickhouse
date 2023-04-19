@@ -115,49 +115,6 @@ hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     ],
 )
 
-hooks.Filters.ENV_PATCHES.add_item(
-    (
-        "local-docker-compose-services",
-        """
-clickhouse:
-    image: clickhouse/clickhouse-server:latest
-    environment:
-        CLICKHOUSE_DB: xapi
-        CLICKHOUSE_USER: "{{ CLICKHOUSE_ADMIN_USER }}"
-        CLICKHOUSE_PASSWORD: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
-        CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
-    ports:
-        - 8123:{{ CLICKHOUSE_HTTP_PORT }}
-        - 9000:{{ CLICKHOUSE_PORT }}
-    healthcheck:
-        test: ["CMD-SHELL", "clickhouse client --user {{ CLICKHOUSE_ADMIN_USER}} --password {{CLICKHOUSE_ADMIN_PASSWORD }} --host {{ CLICKHOUSE_HOST }} --port {{ CLICKHOUSE_PORT }} -q 'exit' || exit 1"]
-        interval: 5s
-        timeout: 5s
-        retries: 3
-        start_period: 40s
-    ulimits:
-        nofile:
-            soft: 262144
-            hard: 262144
-    volumes:
-        - ../../data/clickhouse:/var/lib/clickhouse/
-        - ../../env/plugins/clickhouse/apps/config:/etc/clickhouse-server/config.d/
-        """
-    )
-)
-
-hooks.Filters.ENV_PATCHES.add_item(
-    (
-        "local-docker-compose-jobs-services",
-        """
-clickhouse-job:
-    image: clickhouse/clickhouse-server:latest
-    depends_on: 
-        - clickhouse
-        """,
-    )
-)
-
 
 ########################################
 # PATCH LOADING
