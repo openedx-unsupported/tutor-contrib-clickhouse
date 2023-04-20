@@ -27,14 +27,6 @@ spec:
             - name: CLICKHOUSE_USER
               value: "{{ CLICKHOUSE_ADMIN_USER }}"
           image: {{ DOCKER_IMAGE_CLICKHOUSE }}
-          livenessProbe:
-            exec:
-              command:
-                - clickhouse client --user {{ CLICKHOUSE_ADMIN_USER}} --password {{CLICKHOUSE_ADMIN_PASSWORD }} --host {{ CLICKHOUSE_HOST }} --port {{ CLICKHOUSE_PORT }} -q 'exit' || exit 1
-            failureThreshold: 3
-            initialDelaySeconds: 40
-            periodSeconds: 5
-            timeoutSeconds: 5
           name: clickhouse
           ports:
             - containerPort: 8123
