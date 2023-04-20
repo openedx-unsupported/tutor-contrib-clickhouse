@@ -1,0 +1,3 @@
+- name: clickhouse-settings
+  files:
+    - plugins/clickhouse/apps/config/docker_config.xml

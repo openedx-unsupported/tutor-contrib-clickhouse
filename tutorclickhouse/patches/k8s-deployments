@@ -17,25 +17,39 @@ spec:
         app.kubernetes.io/name: clickhouse
     spec:
       containers:
-        - name: clickhouse
-          image: {{ DOCKER_IMAGE_CLICKHOUSE }}
-          env:
+        - env:
             - name: CLICKHOUSE_DB
               value: xapi
-            - name: CLICKHOUSE_USER
-              value: "{{ CLICKHOUSE_ADMIN_USER }}"
-            - name: CLICKHOUSE_PASSWORD
-              value: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
             - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
               value: "1"
+            - name: CLICKHOUSE_PASSWORD
+              value: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
+            - name: CLICKHOUSE_USER
+              value: "{{ CLICKHOUSE_ADMIN_USER }}"
+          image: {{ DOCKER_IMAGE_CLICKHOUSE }}
+          livenessProbe:
+            exec:
+              command:
+                - clickhouse client --user {{ CLICKHOUSE_ADMIN_USER}} --password {{CLICKHOUSE_ADMIN_PASSWORD }} --host {{ CLICKHOUSE_HOST }} --port {{ CLICKHOUSE_PORT }} -q 'exit' || exit 1
+            failureThreshold: 3
+            initialDelaySeconds: 40
+            periodSeconds: 5
+            timeoutSeconds: 5
+          name: clickhouse
           ports:
             - containerPort: 8123
             - containerPort: 9000
             - containerPort: 9009
           volumeMounts:
-            - mountPath: /var/lib/clickhouse
+            - mountPath: /var/lib/clickhouse/
               name: data
+            - mountPath: /etc/clickhouse-server/config.d/
+              name: settings
+      restartPolicy: Always
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: clickhouse
+        - name: settings
+          configMap:
+            name: clickhouse-settings
