@@ -12,9 +12,10 @@ spec:
       containers:
       - name: clickhouse
         image: {{ DOCKER_IMAGE_CLICKHOUSE }}
+        command: ["/bin/sh", "-c"]
         env:
           - name: CLICKHOUSE_DB
-            value: xapi
+            value: "xapi"
           - name: CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT
             value: "1"
           - name: CLICKHOUSE_PASSWORD
