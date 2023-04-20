@@ -26,7 +26,6 @@ spec:
               name: data
             - mountPath: /etc/clickhouse-server/config.d/
               name: settings
-        restartPolicy: Always
       volumes:
         - name: data
           persistentVolumeClaim:
