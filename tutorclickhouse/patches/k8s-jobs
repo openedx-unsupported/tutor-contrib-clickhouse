@@ -22,15 +22,3 @@ spec:
             value: "{{ CLICKHOUSE_ADMIN_PASSWORD }}"
           - name: CLICKHOUSE_USER
             value: "{{ CLICKHOUSE_ADMIN_USER }}"
-        volumeMounts:
-            - mountPath: /var/lib/clickhouse/
-              name: data
-            - mountPath: /etc/clickhouse-server/config.d/
-              name: settings
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: clickhouse
-        - name: settings
-          configMap:
-            name: clickhouse-settings
