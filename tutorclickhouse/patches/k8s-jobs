@@ -12,7 +12,6 @@ spec:
       containers:
       - name: clickhouse
         image: {{ DOCKER_IMAGE_CLICKHOUSE }}
-        command: ["/bin/sh", "-c"]
         env:
           - name: CLICKHOUSE_DB
             value: "xapi"
