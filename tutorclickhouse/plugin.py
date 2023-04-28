@@ -22,7 +22,6 @@ hooks.Filters.CONFIG_DEFAULTS.add_items(
         ("CLICKHOUSE_PORT", "9000"),
         ("CLICKHOUSE_HTTP_PORT", "8123"),
         ("DOCKER_IMAGE_CLICKHOUSE", "clickhouse/clickhouse-server:23.3"),
-
         # This can be used to override some configuration values in
         # via "docker_config.xml" file, which will be read from a
         # mount on /etc/clickhouse-server/config.d/ on startup.
