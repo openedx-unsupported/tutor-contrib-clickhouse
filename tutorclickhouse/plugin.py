@@ -48,6 +48,7 @@ hooks.Filters.CONFIG_UNIQUE.add_items(
         # Prefix your setting names with 'CLICKHOUSE_'.
         ("CLICKHOUSE_ADMIN_USER", "ch_admin"),
         ("CLICKHOUSE_ADMIN_PASSWORD", "{{ 24|random_string }}"),
+        ("CLICKHOUSE_SECURE_CONNECTION", False),
     ]
 )
 
