@@ -1,3 +1,4 @@
+{% if RUN_CLICKHOUSE %}
 clickhouse:
     image: clickhouse/clickhouse-server:latest
     environment:
@@ -21,3 +22,4 @@ clickhouse:
     volumes:
         - ../../data/clickhouse:/var/lib/clickhouse/
         - ../../env/plugins/clickhouse/apps/config:/etc/clickhouse-server/config.d/
+{% endif %}

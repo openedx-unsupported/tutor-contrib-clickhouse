@@ -1,4 +1,6 @@
+{% if RUN_CLICKHOUSE %}
 clickhouse-job:
     image: clickhouse/clickhouse-server:latest
     depends_on: 
         - clickhouse
+{% endif %}

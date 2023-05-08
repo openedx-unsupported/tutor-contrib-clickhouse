@@ -49,6 +49,7 @@ hooks.Filters.CONFIG_UNIQUE.add_items(
         ("CLICKHOUSE_ADMIN_USER", "ch_admin"),
         ("CLICKHOUSE_ADMIN_PASSWORD", "{{ 24|random_string }}"),
         ("CLICKHOUSE_SECURE_CONNECTION", False),
+        ("RUN_CLICKHOUSE", True),
     ]
 )
 
