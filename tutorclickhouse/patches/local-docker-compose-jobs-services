@@ -1,6 +1,6 @@
 {% if RUN_CLICKHOUSE %}
 clickhouse-job:
-    image: clickhouse/clickhouse-server:latest
+    image: {{DOCKER_IMAGE_CLICKHOUSE}}
     depends_on: 
         - clickhouse
 {% endif %}

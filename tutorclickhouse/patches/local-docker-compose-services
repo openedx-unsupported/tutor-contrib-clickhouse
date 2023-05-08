@@ -1,6 +1,6 @@
 {% if RUN_CLICKHOUSE %}
 clickhouse:
-    image: clickhouse/clickhouse-server:latest
+    image: {{DOCKER_IMAGE_CLICKHOUSE}}
     environment:
         CLICKHOUSE_DB: xapi
         CLICKHOUSE_USER: "{{ CLICKHOUSE_ADMIN_USER }}"
