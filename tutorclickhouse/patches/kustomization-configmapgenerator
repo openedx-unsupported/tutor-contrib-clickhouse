@@ -1,6 +1,8 @@
+{% if RUN_CLICKHOUSE %}
 - name: clickhouse-settings
   files:
     - plugins/clickhouse/apps/config/docker_config.xml
   options:
     labels:
         app.kubernetes.io/name: clickhouse
+{% endif %}

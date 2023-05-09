@@ -1,3 +1,4 @@
+{% if RUN_CLICKHOUSE %}
 ---
 apiVersion: v1
 kind: Service
@@ -18,3 +19,4 @@ spec:
       name: interserver
   selector:
     app.kubernetes.io/name: clickhouse
+{% endif %}

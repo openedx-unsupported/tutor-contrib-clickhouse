@@ -1,3 +1,4 @@
+{% if RUN_CLICKHOUSE %}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,3 +46,4 @@ spec:
         - name: settings
           configMap:
             name: clickhouse-settings
+{% endif %}
