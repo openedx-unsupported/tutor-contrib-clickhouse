@@ -1,6 +1,5 @@
-{% if RUN_CLICKHOUSE %}
 clickhouse-job:
     image: {{DOCKER_IMAGE_CLICKHOUSE}}
-    depends_on: 
+    {% if RUN_CLICKHOUSE%}depends_on: 
         - clickhouse
-{% endif %}
+    {% endif %}
