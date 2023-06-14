@@ -1,3 +1,10 @@
+THIS REPOSITORY IS DEPRECATED
+=============================
+
+This functionality now lives in `tutor-contrib-oars <https://github.com/openedx/tutor-contrib-oars>`__ as we work to consolidate the Open edX analytics functionality into one place.
+
+This repository was experimental as we worked on OARS and will be archived soon.
+
 ClickHouse plugin for `Tutor <https://docs.tutor.overhang.io>`__
 ===================================================================================
 
@@ -29,7 +36,7 @@ Usage
     tutor plugins enable clickhouse
 
 
-In case you want to use clickhouse-cloud you will need to disable the clickhouse 
+In case you want to use clickhouse-cloud you will need to disable the clickhouse
 service, and set the following environment variables:
 
 ::
